@@ -36,7 +36,7 @@ const ProblemPage = () => {
       try {
         const response = await axiosClient.get(`/problem/problemById/${problemId}`);
         const initialCode = response.data.startCode.find(sc => sc.language === langMap[selectedLanguage])?.initialCode || '';
-        
+
         setProblem(response.data);
         setCode(initialCode);
         setLoading(false);
@@ -79,7 +79,7 @@ const ProblemPage = () => {
   const handleRun = async () => {
     setLoading(true);
     setRunResult(null);
-    
+
     try {
       const response = await axiosClient.post(`/submission/run/${problemId}`, {
         code,
@@ -103,7 +103,7 @@ const ProblemPage = () => {
   const handleSubmitCode = async () => {
     setLoading(true);
     setSubmitResult(null);
-    
+
     try {
       const response = await axiosClient.post(`/submission/submit/${problemId}`, {
         code: code,
@@ -200,14 +200,13 @@ const ProblemPage = () => {
               </p>
             </div>
           </div>
-          
+
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className={`relative p-3 rounded-xl transition-all duration-500 group overflow-hidden ${
-              darkMode 
-                ? 'bg-slate-800 hover:bg-slate-700 text-amber-400' 
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-            } hover:scale-110 hover:shadow-lg`}
+            className={`relative p-3 rounded-xl transition-all duration-500 group overflow-hidden ${darkMode
+              ? 'bg-slate-800 hover:bg-slate-700 text-amber-400'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+              } hover:scale-110 hover:shadow-lg`}
           >
             <div className={`absolute inset-0 ${darkMode ? 'bg-amber-400/20' : 'bg-slate-700/10'} transform scale-0 group-hover:scale-100 transition-transform duration-500 rounded-xl`}></div>
             {darkMode ? (
@@ -230,15 +229,14 @@ const ProblemPage = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveLeftTab(tab.id)}
-                  className={`relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all duration-300 border-b-2 whitespace-nowrap group ${
-                    activeLeftTab === tab.id
-                      ? darkMode
-                        ? 'text-blue-400 border-blue-400 bg-slate-800/70'
-                        : 'text-blue-600 border-blue-600 bg-blue-50'
-                      : darkMode
-                        ? 'text-slate-400 border-transparent hover:text-slate-300 hover:bg-slate-800/40'
-                        : 'text-slate-600 border-transparent hover:text-slate-900 hover:bg-slate-50'
-                  }`}
+                  className={`relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all duration-300 border-b-2 whitespace-nowrap group ${activeLeftTab === tab.id
+                    ? darkMode
+                      ? 'text-blue-400 border-blue-400 bg-slate-800/70'
+                      : 'text-blue-600 border-blue-600 bg-blue-50'
+                    : darkMode
+                      ? 'text-slate-400 border-transparent hover:text-slate-300 hover:bg-slate-800/40'
+                      : 'text-slate-600 border-transparent hover:text-slate-900 hover:bg-slate-50'
+                    }`}
                 >
                   <Icon className={`w-4 h-4 transition-all duration-300 ${activeLeftTab === tab.id ? 'animate-bounce-subtle' : 'group-hover:scale-110'}`} />
                   {tab.label}
@@ -269,9 +267,8 @@ const ProblemPage = () => {
                         <span className={`px-4 py-1.5 rounded-full text-xs font-bold border-2 ${getDifficultyColor(problem.difficulty)} backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-lg animate-fade-in`}>
                           {problem.difficulty?.charAt(0).toUpperCase() + problem.difficulty?.slice(1)}
                         </span>
-                        <span className={`px-4 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm border ${
-                          darkMode ? 'bg-slate-800/50 text-slate-300 border-slate-700' : 'bg-slate-100/50 text-slate-700 border-slate-200'
-                        } transition-all duration-300 hover:scale-105 animate-fade-in animation-delay-100`}>
+                        <span className={`px-4 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm border ${darkMode ? 'bg-slate-800/50 text-slate-300 border-slate-700' : 'bg-slate-100/50 text-slate-700 border-slate-200'
+                          } transition-all duration-300 hover:scale-105 animate-fade-in animation-delay-100`}>
                           {problem.tags}
                         </span>
                       </div>
@@ -296,11 +293,10 @@ const ProblemPage = () => {
                     {problem.visibleTestCases?.map((example, index) => (
                       <div
                         key={index}
-                        className={`rounded-2xl border-2 p-5 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl animate-fade-in-up ${
-                          darkMode
-                            ? 'bg-slate-800/40 border-slate-700/50 hover:border-blue-500/50 hover:bg-slate-800/60'
-                            : 'bg-white/70 border-slate-200 hover:border-blue-300 hover:bg-white'
-                        } backdrop-blur-sm`}
+                        className={`rounded-2xl border-2 p-5 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl animate-fade-in-up ${darkMode
+                          ? 'bg-slate-800/40 border-slate-700/50 hover:border-blue-500/50 hover:bg-slate-800/60'
+                          : 'bg-white/70 border-slate-200 hover:border-blue-300 hover:bg-white'
+                          } backdrop-blur-sm`}
                         style={{ animationDelay: `${(index + 4) * 100}ms` }}
                       >
                         <h4 className={`font-bold mb-4 flex items-center gap-2 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
@@ -325,10 +321,10 @@ const ProblemPage = () => {
               )}
               {activeLeftTab === 'editorial' && problem && (
                 <div className="animate-slide-in-left">
-                  <Editorial 
-                    secureUrl={problem.secureUrl} 
-                    thumbnailUrl={problem.thumbnailUrl} 
-                    duration={problem.duration} 
+                  <Editorial
+                    secureUrl={problem.secureUrl}
+                    thumbnailUrl={problem.thumbnailUrl}
+                    duration={problem.duration}
                   />
                 </div>
               )}
@@ -411,15 +407,14 @@ const ProblemPage = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveRightTab(tab.id)}
-                    className={`relative flex items-center gap-2 px-5 py-3.5 text-sm font-medium transition-all duration-300 border-b-2 group ${
-                      activeRightTab === tab.id
-                        ? darkMode
-                          ? 'text-purple-400 border-purple-400 bg-slate-800/70'
-                          : 'text-purple-600 border-purple-600 bg-purple-50'
-                        : darkMode
-                          ? 'text-slate-400 border-transparent hover:text-slate-300 hover:bg-slate-800/40'
-                          : 'text-slate-600 border-transparent hover:text-slate-900 hover:bg-slate-50'
-                    }`}
+                    className={`relative flex items-center gap-2 px-5 py-3.5 text-sm font-medium transition-all duration-300 border-b-2 group ${activeRightTab === tab.id
+                      ? darkMode
+                        ? 'text-purple-400 border-purple-400 bg-slate-800/70'
+                        : 'text-purple-600 border-purple-600 bg-purple-50'
+                      : darkMode
+                        ? 'text-slate-400 border-transparent hover:text-slate-300 hover:bg-slate-800/40'
+                        : 'text-slate-600 border-transparent hover:text-slate-900 hover:bg-slate-50'
+                      }`}
                   >
                     <Icon className={`w-4 h-4 transition-all duration-300 ${activeRightTab === tab.id ? 'animate-bounce-subtle' : 'group-hover:scale-110'}`} />
                     {tab.label}
@@ -436,28 +431,46 @@ const ProblemPage = () => {
               <button
                 onClick={handleRun}
                 disabled={loading && activeRightTab !== 'result'}
-                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 overflow-hidden group ${
-                  darkMode
-                    ? 'bg-slate-800 text-white hover:bg-slate-700 border-2 border-slate-700 hover:border-blue-500'
-                    : 'bg-white text-slate-900 hover:bg-slate-50 border-2 border-slate-300 hover:border-blue-400'
-                } disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 hover:shadow-xl`}
+                className={`relative flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 overflow-hidden group shadow-xl ${darkMode
+                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-blue-500/40'
+                  : 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-blue-500/40'
+                  } disabled:opacity-50 disabled:cursor-not-allowed hover:scale-110 hover:shadow-2xl hover:-translate-y-0.5`}
               >
-                <div className={`absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 transform scale-0 group-hover:scale-100 transition-transform duration-500`}></div>
-                <Play className={`w-4 h-4 relative z-10 ${loading && activeRightTab === 'testcase' ? 'animate-spin' : ''}`} />
-                <span className="relative z-10">{loading && activeRightTab === 'testcase' ? 'Running...' : 'Run'}</span>
+                {/* Animated Glow */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl blur-lg opacity-0 group-hover:opacity-60 transition-all duration-500"></div>
+
+                {/* Shimmer Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+
+                <Play className={`w-5 h-5 relative z-10 ${loading && activeRightTab === 'testcase' ? 'animate-spin' : 'group-hover:scale-110 transition-transform'}`} strokeWidth={2.5} />
+                <span className="relative z-10 font-extrabold">{loading && activeRightTab === 'testcase' ? 'Running...' : 'Run Code'}</span>
               </button>
+
               <button
                 onClick={handleSubmitCode}
                 disabled={loading && activeRightTab === 'result'}
-                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all duration-300 overflow-hidden group shadow-xl ${
-                  darkMode
-                    ? 'bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 shadow-emerald-500/40'
-                    : 'bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 shadow-emerald-500/40'
-                } disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 hover:shadow-2xl`}
+                className={`relative flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white transition-all duration-300 overflow-hidden group shadow-2xl ${darkMode
+                  ? 'bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 hover:from-emerald-500 hover:via-green-500 hover:to-teal-500 shadow-emerald-500/50'
+                  : 'bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-600 hover:via-green-600 hover:to-teal-600 shadow-emerald-500/50'
+                  } disabled:opacity-50 disabled:cursor-not-allowed hover:scale-110 hover:shadow-emerald-500/60 hover:-translate-y-0.5 animate-pulse-slow`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <Send className={`w-4 h-4 relative z-10 ${loading && activeRightTab === 'result' ? 'animate-bounce' : ''}`} />
-                <span className="relative z-10">{loading && activeRightTab === 'result' ? 'Submitting...' : 'Submit'}</span>
+                {/* Animated Glow */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 rounded-xl blur-xl opacity-60 group-hover:opacity-100 transition-all duration-500 animate-pulse"></div>
+
+                {/* Shimmer Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+
+                {/* Sparkle Effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-white rounded-full animate-ping"></div>
+                  <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-white rounded-full animate-ping animation-delay-200"></div>
+                </div>
+
+                <Send className={`w-5 h-5 relative z-10 ${loading && activeRightTab === 'result' ? 'animate-bounce' : 'group-hover:scale-110 group-hover:rotate-12 transition-all'}`} strokeWidth={2.5} />
+                <span className="relative z-10 font-extrabold">{loading && activeRightTab === 'result' ? 'Submitting...' : 'Submit Solution'}</span>
+
+                {/* Bottom Accent */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 via-emerald-300 to-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-all duration-500"></div>
               </button>
             </div>
           </div>
@@ -473,15 +486,14 @@ const ProblemPage = () => {
                       <button
                         key={lang}
                         onClick={() => handleLanguageChange(lang)}
-                        className={`relative px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 overflow-hidden group ${
-                          selectedLanguage === lang
-                            ? darkMode
-                              ? 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-xl shadow-purple-500/40'
-                              : 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white shadow-xl shadow-purple-500/40'
-                            : darkMode
-                              ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 hover:border-purple-500'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 hover:border-purple-400'
-                        } hover:scale-105`}
+                        className={`relative px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 overflow-hidden group ${selectedLanguage === lang
+                          ? darkMode
+                            ? 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-xl shadow-purple-500/40'
+                            : 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white shadow-xl shadow-purple-500/40'
+                          : darkMode
+                            ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 hover:border-purple-500'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 hover:border-purple-400'
+                          } hover:scale-105`}
                       >
                         {selectedLanguage === lang && (
                           <div className="absolute inset-0 bg-white/20 animate-pulse-ring"></div>
@@ -494,11 +506,10 @@ const ProblemPage = () => {
                   </div>
                   <button
                     onClick={() => setActiveRightTab('testcase')}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105 ${
-                      darkMode
-                        ? 'text-slate-400 hover:text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent hover:border-slate-200'
-                    }`}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105 ${darkMode
+                      ? 'text-slate-400 hover:text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent hover:border-slate-200'
+                      }`}
                   >
                     Console
                   </button>
@@ -543,63 +554,87 @@ const ProblemPage = () => {
 
             {activeRightTab === 'testcase' && (
               <div className="flex-1 p-6 overflow-y-auto animate-slide-in-right scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900">
-                <h3 className={`text-xl font-bold mb-6 flex items-center gap-3 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                  <div className={`p-2 rounded-lg ${darkMode ? 'bg-blue-600/20' : 'bg-blue-100'}`}>
-                    <Play className="w-5 h-5 text-blue-500" />
+                <h3 className={`text-2xl font-bold mb-6 flex items-center gap-3 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  <div className={`relative p-3 rounded-xl ${darkMode ? 'bg-gradient-to-br from-blue-600/20 to-cyan-600/20' : 'bg-gradient-to-br from-blue-100 to-cyan-100'} shadow-lg`}>
+                    <Play className="w-6 h-6 text-blue-500" strokeWidth={2.5} />
+                    <div className="absolute inset-0 bg-blue-500/20 rounded-xl blur-md"></div>
                   </div>
                   Test Results
                 </h3>
                 {runResult ? (
-                  <div className={`rounded-2xl border-2 p-8 transition-all duration-500 animate-scale-in ${
-                    runResult.success
-                      ? darkMode ? 'bg-emerald-900/20 border-emerald-600/50 shadow-xl shadow-emerald-500/20' : 'bg-emerald-50 border-emerald-300 shadow-xl shadow-emerald-500/20'
-                      : darkMode ? 'bg-rose-900/20 border-rose-600/50 shadow-xl shadow-rose-500/20' : 'bg-rose-50 border-rose-300 shadow-xl shadow-rose-500/20'
-                  }`}>
+                  <div className={`rounded-2xl border-2 p-8 transition-all duration-500 animate-scale-in backdrop-blur-sm ${runResult.success
+                    ? darkMode ? 'bg-gradient-to-br from-emerald-900/30 to-green-900/20 border-emerald-500/50 shadow-2xl shadow-emerald-500/30' : 'bg-gradient-to-br from-emerald-50 to-green-50 border-emerald-400 shadow-2xl shadow-emerald-500/30'
+                    : darkMode ? 'bg-gradient-to-br from-rose-900/30 to-red-900/20 border-rose-500/50 shadow-2xl shadow-rose-500/30' : 'bg-gradient-to-br from-rose-50 to-red-50 border-rose-400 shadow-2xl shadow-rose-500/30'
+                    }`}>
                     {runResult.success ? (
                       <div className="space-y-6">
-                        <div className="flex items-center gap-3 animate-bounce-in">
+                        {/* Success Header */}
+                        <div className="flex items-center gap-4 animate-bounce-in">
                           <div className="relative">
-                            <Check className="w-8 h-8 text-emerald-500" />
-                            <div className="absolute inset-0 bg-emerald-500/30 blur-xl animate-pulse"></div>
-                          </div>
-                          <h4 className={`text-2xl font-bold ${darkMode ? 'text-emerald-400' : 'text-emerald-700'}`}>
-                            All test cases passed!
-                          </h4>
-                        </div>
-                        {runResult.runtime && runResult.memory && (
-                          <div className="flex gap-4">
-                            <div className={`flex-1 p-4 rounded-xl backdrop-blur-sm border-2 ${darkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-slate-200'} transition-all duration-300 hover:scale-105`}>
-                              <div className={`flex items-center gap-2 mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                                <Clock className="w-4 h-4" />
-                                <span className="text-xs font-medium">Runtime</span>
-                              </div>
-                              <div className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>{runResult.runtime} sec</div>
+                            <div className="absolute inset-0 bg-emerald-500/40 rounded-full blur-2xl animate-pulse"></div>
+                            <div className={`relative p-4 rounded-2xl ${darkMode ? 'bg-emerald-600/20' : 'bg-emerald-100'} shadow-xl`}>
+                              <Check className="w-12 h-12 text-emerald-500" strokeWidth={3} />
                             </div>
-                            <div className={`flex-1 p-4 rounded-xl backdrop-blur-sm border-2 ${darkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-slate-200'} transition-all duration-300 hover:scale-105`}>
-                              <div className={`flex items-center gap-2 mb-1 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                                <Cpu className="w-4 h-4" />
-                                <span className="text-xs font-medium">Memory</span>
+                          </div>
+                          <div>
+                            <h4 className={`text-3xl font-black ${darkMode ? 'text-emerald-400' : 'text-emerald-700'} mb-1`}>
+                              All Tests Passed! 🎉
+                            </h4>
+                            <p className={`text-sm ${darkMode ? 'text-emerald-300/70' : 'text-emerald-600/70'}`}>
+                              Your code executed successfully
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Stats Cards */}
+                        {runResult.runtime && runResult.memory && (
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className={`relative group p-5 rounded-xl backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 ${darkMode ? 'bg-slate-800/60 border-slate-700 hover:border-blue-500/50' : 'bg-white/80 border-slate-200 hover:border-blue-400'} shadow-lg`}>
+                              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl blur opacity-0 group-hover:opacity-20 transition-all duration-500"></div>
+                              <div className="relative">
+                                <div className={`flex items-center gap-2 mb-2 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                                  <Clock className="w-5 h-5 text-blue-500" strokeWidth={2.5} />
+                                  <span className="text-sm font-bold">Runtime</span>
+                                </div>
+                                <div className={`text-2xl font-black ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                                  {runResult.runtime} <span className="text-lg text-slate-500">sec</span>
+                                </div>
                               </div>
-                              <div className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>{runResult.memory} KB</div>
+                            </div>
+                            <div className={`relative group p-5 rounded-xl backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 ${darkMode ? 'bg-slate-800/60 border-slate-700 hover:border-purple-500/50' : 'bg-white/80 border-slate-200 hover:border-purple-400'} shadow-lg`}>
+                              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl blur opacity-0 group-hover:opacity-20 transition-all duration-500"></div>
+                              <div className="relative">
+                                <div className={`flex items-center gap-2 mb-2 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                                  <Cpu className="w-5 h-5 text-purple-500" strokeWidth={2.5} />
+                                  <span className="text-sm font-bold">Memory</span>
+                                </div>
+                                <div className={`text-2xl font-black ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                                  {runResult.memory} <span className="text-lg text-slate-500">KB</span>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         )}
-                        <div className="space-y-3 mt-4">
+
+                        {/* Test Cases */}
+                        <div className="space-y-3 mt-6">
+                          <h5 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-slate-900'} mb-3`}>Test Case Details</h5>
                           {runResult.testCases?.map((tc, i) => (
-                            <div key={i} className={`p-5 rounded-xl border-2 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] animate-fade-in-up ${darkMode ? 'bg-slate-800/50 border-slate-700/50 hover:border-emerald-500/50' : 'bg-white border-slate-200 hover:border-emerald-300'}`} style={{ animationDelay: `${i * 100}ms` }}>
-                              <div className="space-y-3 text-sm font-mono">
-                                <div className={`p-2 rounded ${darkMode ? 'bg-slate-900/50 text-slate-300' : 'bg-slate-50 text-slate-700'}`}>
-                                  <span className="font-bold">Input:</span> {tc.stdin}
+                            <div key={i} className={`relative group p-5 rounded-xl border-2 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] animate-fade-in-up ${darkMode ? 'bg-slate-800/60 border-emerald-700/50 hover:border-emerald-500/70' : 'bg-white/80 border-emerald-300 hover:border-emerald-400'} shadow-lg`} style={{ animationDelay: `${i * 100}ms` }}>
+                              <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-green-500 rounded-xl blur opacity-0 group-hover:opacity-20 transition-all duration-500"></div>
+                              <div className="relative space-y-3 text-sm font-mono">
+                                <div className={`p-3 rounded-lg ${darkMode ? 'bg-slate-900/60 text-emerald-300' : 'bg-emerald-50 text-emerald-800'} border ${darkMode ? 'border-slate-700' : 'border-emerald-200'}`}>
+                                  <span className="font-bold text-emerald-500">Input:</span> {tc.stdin}
                                 </div>
-                                <div className={`p-2 rounded ${darkMode ? 'bg-slate-900/50 text-slate-300' : 'bg-slate-50 text-slate-700'}`}>
-                                  <span className="font-bold">Expected:</span> {tc.expected_output}
+                                <div className={`p-3 rounded-lg ${darkMode ? 'bg-slate-900/60 text-blue-300' : 'bg-blue-50 text-blue-800'} border ${darkMode ? 'border-slate-700' : 'border-blue-200'}`}>
+                                  <span className="font-bold text-blue-500">Expected:</span> {tc.expected_output}
                                 </div>
-                                <div className={`p-2 rounded ${darkMode ? 'bg-slate-900/50 text-slate-300' : 'bg-slate-50 text-slate-700'}`}>
-                                  <span className="font-bold">Output:</span> {tc.stdout}
+                                <div className={`p-3 rounded-lg ${darkMode ? 'bg-slate-900/60 text-cyan-300' : 'bg-cyan-50 text-cyan-800'} border ${darkMode ? 'border-slate-700' : 'border-cyan-200'}`}>
+                                  <span className="font-bold text-cyan-500">Output:</span> {tc.stdout}
                                 </div>
-                                <div className="flex items-center gap-2 text-emerald-500 font-bold">
-                                  <CheckCircle2 className="w-5 h-5" />
-                                  Passed
+                                <div className="flex items-center gap-2 text-emerald-500 font-bold pt-2">
+                                  <CheckCircle2 className="w-6 h-6" strokeWidth={2.5} />
+                                  <span className="text-base">Test Case Passed ✓</span>
                                 </div>
                               </div>
                             </div>
@@ -608,31 +643,43 @@ const ProblemPage = () => {
                       </div>
                     ) : (
                       <div className="space-y-6">
-                        <div className="flex items-center gap-3 animate-shake">
+                        {/* Error Header */}
+                        <div className="flex items-center gap-4 animate-shake">
                           <div className="relative">
-                            <X className="w-8 h-8 text-rose-500" />
-                            <div className="absolute inset-0 bg-rose-500/30 blur-xl animate-pulse"></div>
+                            <div className="absolute inset-0 bg-rose-500/40 rounded-full blur-2xl animate-pulse"></div>
+                            <div className={`relative p-4 rounded-2xl ${darkMode ? 'bg-rose-600/20' : 'bg-rose-100'} shadow-xl`}>
+                              <X className="w-12 h-12 text-rose-500" strokeWidth={3} />
+                            </div>
                           </div>
-                          <h4 className={`text-2xl font-bold ${darkMode ? 'text-rose-400' : 'text-rose-700'}`}>
-                            {runResult.error || 'Tests Failed'}
-                          </h4>
+                          <div>
+                            <h4 className={`text-3xl font-black ${darkMode ? 'text-rose-400' : 'text-rose-700'} mb-1`}>
+                              {runResult.error || 'Tests Failed'} ❌
+                            </h4>
+                            <p className={`text-sm ${darkMode ? 'text-rose-300/70' : 'text-rose-600/70'}`}>
+                              Review the failed test cases below
+                            </p>
+                          </div>
                         </div>
+
+                        {/* Failed Test Cases */}
                         <div className="space-y-3">
+                          <h5 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-slate-900'} mb-3`}>Test Case Details</h5>
                           {runResult.testCases?.map((tc, i) => (
-                            <div key={i} className={`p-5 rounded-xl border-2 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] animate-fade-in-up ${darkMode ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`} style={{ animationDelay: `${i * 100}ms` }}>
-                              <div className="space-y-3 text-sm font-mono">
-                                <div className={`p-2 rounded ${darkMode ? 'bg-slate-900/50 text-slate-300' : 'bg-slate-50 text-slate-700'}`}>
+                            <div key={i} className={`relative group p-5 rounded-xl border-2 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] animate-fade-in-up ${darkMode ? 'bg-slate-800/60 border-rose-700/50 hover:border-rose-500/70' : 'bg-white/80 border-rose-300 hover:border-rose-400'} shadow-lg`} style={{ animationDelay: `${i * 100}ms` }}>
+                              <div className={`absolute -inset-0.5 bg-gradient-to-r ${tc.status_id === 3 ? 'from-emerald-500 to-green-500' : 'from-rose-500 to-red-500'} rounded-xl blur opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
+                              <div className="relative space-y-3 text-sm font-mono">
+                                <div className={`p-3 rounded-lg ${darkMode ? 'bg-slate-900/60 text-slate-300' : 'bg-slate-50 text-slate-700'} border ${darkMode ? 'border-slate-700' : 'border-slate-200'}`}>
                                   <span className="font-bold">Input:</span> {tc.stdin}
                                 </div>
-                                <div className={`p-2 rounded ${darkMode ? 'bg-slate-900/50 text-slate-300' : 'bg-slate-50 text-slate-700'}`}>
+                                <div className={`p-3 rounded-lg ${darkMode ? 'bg-slate-900/60 text-slate-300' : 'bg-slate-50 text-slate-700'} border ${darkMode ? 'border-slate-700' : 'border-slate-200'}`}>
                                   <span className="font-bold">Expected:</span> {tc.expected_output}
                                 </div>
-                                <div className={`p-2 rounded ${darkMode ? 'bg-slate-900/50 text-slate-300' : 'bg-slate-50 text-slate-700'}`}>
+                                <div className={`p-3 rounded-lg ${darkMode ? 'bg-slate-900/60 text-slate-300' : 'bg-slate-50 text-slate-700'} border ${darkMode ? 'border-slate-700' : 'border-slate-200'}`}>
                                   <span className="font-bold">Output:</span> {tc.stdout}
                                 </div>
-                                <div className={`flex items-center gap-2 font-bold ${tc.status_id === 3 ? 'text-emerald-500' : 'text-rose-500'}`}>
-                                  {tc.status_id === 3 ? <CheckCircle2 className="w-5 h-5" /> : <XCircle className="w-5 h-5" />}
-                                  {tc.status_id === 3 ? 'Passed' : 'Failed'}
+                                <div className={`flex items-center gap-2 font-bold pt-2 ${tc.status_id === 3 ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                  {tc.status_id === 3 ? <CheckCircle2 className="w-6 h-6" strokeWidth={2.5} /> : <XCircle className="w-6 h-6" strokeWidth={2.5} />}
+                                  <span className="text-base">{tc.status_id === 3 ? 'Test Case Passed ✓' : 'Test Case Failed ✗'}</span>
                                 </div>
                               </div>
                             </div>
@@ -642,9 +689,13 @@ const ProblemPage = () => {
                     )}
                   </div>
                 ) : (
-                  <div className={`text-center py-16 rounded-2xl border-2 ${darkMode ? 'bg-slate-800/30 border-slate-700/50 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-500'} backdrop-blur-sm`}>
-                    <Play className="w-16 h-16 mx-auto mb-4 opacity-50 animate-pulse" />
-                    <p className="text-lg font-medium">Click "Run" to test your code</p>
+                  <div className={`text-center py-20 rounded-2xl border-2 backdrop-blur-sm ${darkMode ? 'bg-slate-800/30 border-slate-700/50' : 'bg-slate-50 border-slate-200'} shadow-xl`}>
+                    <div className="relative inline-block mb-6">
+                      <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-2xl animate-pulse"></div>
+                      <Play className={`relative w-20 h-20 mx-auto ${darkMode ? 'text-slate-600' : 'text-slate-400'} animate-pulse`} strokeWidth={1.5} />
+                    </div>
+                    <p className={`text-xl font-bold ${darkMode ? 'text-slate-400' : 'text-slate-500'} mb-2`}>No Test Results Yet</p>
+                    <p className={`text-sm ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>Click "Run Code" to test your solution</p>
                   </div>
                 )}
               </div>
@@ -659,11 +710,10 @@ const ProblemPage = () => {
                   Submission Result
                 </h3>
                 {submitResult ? (
-                  <div className={`rounded-2xl border-2 p-10 transition-all duration-500 animate-scale-in ${
-                    submitResult.accepted
-                      ? darkMode ? 'bg-emerald-900/20 border-emerald-600/50 shadow-2xl shadow-emerald-500/30' : 'bg-emerald-50 border-emerald-300 shadow-2xl shadow-emerald-500/30'
-                      : darkMode ? 'bg-rose-900/20 border-rose-600/50 shadow-2xl shadow-rose-500/30' : 'bg-rose-50 border-rose-300 shadow-2xl shadow-rose-500/30'
-                  }`}>
+                  <div className={`rounded-2xl border-2 p-10 transition-all duration-500 animate-scale-in ${submitResult.accepted
+                    ? darkMode ? 'bg-emerald-900/20 border-emerald-600/50 shadow-2xl shadow-emerald-500/30' : 'bg-emerald-50 border-emerald-300 shadow-2xl shadow-emerald-500/30'
+                    : darkMode ? 'bg-rose-900/20 border-rose-600/50 shadow-2xl shadow-rose-500/30' : 'bg-rose-50 border-rose-300 shadow-2xl shadow-rose-500/30'
+                    }`}>
                     {submitResult.accepted ? (
                       <div className="space-y-8 text-center">
                         <div className="animate-bounce-in">
@@ -729,7 +779,7 @@ const ProblemPage = () => {
                     <Trophy className="w-16 h-16 mx-auto mb-4 opacity-50 animate-pulse" />
                     <p className="text-lg font-medium">Click "Submit" to submit your solution</p>
                   </div>
-                  )}
+                )}
               </div>
             )}
           </div>

@@ -19,6 +19,8 @@ const videoRouter = require("./routes/videoCreator");
 const contestRouter = require("./routes/contest");
 const dailyChallengeRouter = require("./routes/dailyChallenge");
 const friendArenaRouter = require("./routes/friendArena");
+const profileRouter = require("./routes/profile");
+const achievementsRouter = require("./routes/achievements");
 
 // Create HTTP server
 const server = http.createServer(app);
@@ -48,6 +50,8 @@ app.use('/video', videoRouter);
 app.use('/contest', contestRouter);
 app.use('/daily-challenge', dailyChallengeRouter);
 app.use('/friend-arena', friendArenaRouter);
+app.use('/profile', profileRouter);
+app.use('/achievements', achievementsRouter);
 
 // Socket.io connection handling
 const jwt = require('jsonwebtoken');
@@ -132,7 +136,7 @@ io.on('connection', (socket) => {
                     const intervalId = setInterval(() => {
                         const now = new Date();
                         const remaining = Math.max(0, endTime - now);
-                        
+
                         socket.emit('timer-update', {
                             remaining: remaining,
                             endTime: endTime

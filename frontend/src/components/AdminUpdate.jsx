@@ -10,7 +10,7 @@ const problemSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
   difficulty: z.enum(['easy', 'medium', 'hard']),
-  tags: z.enum(['array', 'linkedList', 'graph', 'dp']),
+  tags: z.enum(['array', 'linkedList', 'graph', 'dp', 'string', 'tree', 'stack', 'queue', 'heap', 'hash', 'sorting', 'searching', 'greedy', 'backtracking']),
   visibleTestCases: z.array(
     z.object({
       input: z.string().min(1, 'Input is required'),
@@ -109,12 +109,12 @@ const AdminUpdate = () => {
       setLoading(true);
       setError(null);
       const { data } = await axiosClient.get(`/problem/problemById/${id}`);
-      
+
       // Transform the data to match our form structure
       const difficulty = (data.difficulty || '').toLowerCase();
       const validDifficulties = ['easy', 'medium', 'hard'];
       const normalizedDifficulty = validDifficulties.includes(difficulty) ? difficulty : 'easy';
-      
+
       const transformedData = {
         title: data.title || '',
         description: data.description || '',
@@ -133,7 +133,7 @@ const AdminUpdate = () => {
           { language: 'JavaScript', completeCode: '' }
         ]
       };
-      
+
       setSelectedProblem(data);
       reset(transformedData);
     } catch (err) {
@@ -146,18 +146,18 @@ const AdminUpdate = () => {
 
   const onSubmit = async (data) => {
     if (!selectedProblem) return;
-    
+
     try {
       setUpdating(true);
       setSuccess(null);
       setError(null);
-      
+
       await axiosClient.put(`/problem/update/${selectedProblem._id}`, data);
-      
+
       setSuccess('Problem updated successfully!');
       // Scroll to top to show success message
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      
+
       // Clear success message after 3 seconds
       setTimeout(() => {
         setSuccess(null);
@@ -229,13 +229,12 @@ const AdminUpdate = () => {
                     <th>{index + 1}</th>
                     <td>{problem.title}</td>
                     <td>
-                      <span className={`badge ${
-                        problem.difficulty === 'Easy' 
-                          ? 'badge-success' 
-                          : problem.difficulty === 'Medium' 
-                            ? 'badge-warning' 
+                      <span className={`badge ${problem.difficulty === 'Easy'
+                          ? 'badge-success'
+                          : problem.difficulty === 'Medium'
+                            ? 'badge-warning'
                             : 'badge-error'
-                      }`}>
+                        }`}>
                         {problem.difficulty}
                       </span>
                     </td>
@@ -246,7 +245,7 @@ const AdminUpdate = () => {
                     </td>
                     <td>
                       <div className="flex space-x-2">
-                        <button 
+                        <button
                           onClick={() => fetchProblemDetails(problem._id)}
                           className="btn btn-sm btn-primary"
                         >
@@ -265,7 +264,7 @@ const AdminUpdate = () => {
         <div>
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold">Update Problem: {selectedProblem.title}</h1>
-            <button 
+            <button
               onClick={() => {
                 setSelectedProblem(null);
                 reset();
@@ -355,7 +354,17 @@ const AdminUpdate = () => {
                       <option value="array">Array</option>
                       <option value="linkedList">Linked List</option>
                       <option value="graph">Graph</option>
-                      <option value="dp">DP</option>
+                      <option value="dp">Dynamic Programming</option>
+                      <option value="string">String</option>
+                      <option value="tree">Tree</option>
+                      <option value="stack">Stack</option>
+                      <option value="queue">Queue</option>
+                      <option value="heap">Heap</option>
+                      <option value="hash">Hash Table</option>
+                      <option value="sorting">Sorting</option>
+                      <option value="searching">Searching</option>
+                      <option value="greedy">Greedy</option>
+                      <option value="backtracking">Backtracking</option>
                     </select>
                   </div>
                 </div>
@@ -365,7 +374,7 @@ const AdminUpdate = () => {
             {/* Test Cases */}
             <div className="card bg-base-100 shadow-lg p-6">
               <h2 className="text-xl font-semibold mb-4">Test Cases</h2>
-              
+
               {/* Visible Test Cases */}
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between items-center">
@@ -378,7 +387,7 @@ const AdminUpdate = () => {
                     Add Visible Case
                   </button>
                 </div>
-                
+
                 {visibleFields.map((field, index) => (
                   <div key={field.id} className="border p-4 rounded-lg space-y-2">
                     <div className="flex justify-end">
@@ -390,19 +399,19 @@ const AdminUpdate = () => {
                         Remove
                       </button>
                     </div>
-                    
+
                     <input
                       {...register(`visibleTestCases.${index}.input`)}
                       placeholder="Input"
                       className="input input-bordered w-full"
                     />
-                    
+
                     <input
                       {...register(`visibleTestCases.${index}.output`)}
                       placeholder="Output"
                       className="input input-bordered w-full"
                     />
-                    
+
                     <textarea
                       {...register(`visibleTestCases.${index}.explanation`)}
                       placeholder="Explanation"
@@ -424,7 +433,7 @@ const AdminUpdate = () => {
                     Add Hidden Case
                   </button>
                 </div>
-                
+
                 {hiddenFields.map((field, index) => (
                   <div key={field.id} className="border p-4 rounded-lg space-y-2">
                     <div className="flex justify-end">
@@ -436,13 +445,13 @@ const AdminUpdate = () => {
                         Remove
                       </button>
                     </div>
-                    
+
                     <input
                       {...register(`hiddenTestCases.${index}.input`)}
                       placeholder="Input"
                       className="input input-bordered w-full"
                     />
-                    
+
                     <input
                       {...register(`hiddenTestCases.${index}.output`)}
                       placeholder="Output"
@@ -456,14 +465,14 @@ const AdminUpdate = () => {
             {/* Code Templates */}
             <div className="card bg-base-100 shadow-lg p-6">
               <h2 className="text-xl font-semibold mb-4">Code Templates</h2>
-              
+
               <div className="space-y-6">
                 {[0, 1, 2].map((index) => (
                   <div key={index} className="space-y-2">
                     <h3 className="font-medium">
                       {index === 0 ? 'C++' : index === 1 ? 'Java' : 'JavaScript'}
                     </h3>
-                    
+
                     <div className="form-control">
                       <label className="label">
                         <span className="label-text">Initial Code</span>
@@ -476,7 +485,7 @@ const AdminUpdate = () => {
                         />
                       </pre>
                     </div>
-                    
+
                     <div className="form-control">
                       <label className="label">
                         <span className="label-text">Reference Solution</span>
@@ -495,7 +504,7 @@ const AdminUpdate = () => {
             </div>
 
             <div className="flex gap-4">
-              <button 
+              <button
                 type="button"
                 onClick={() => {
                   setSelectedProblem(null);
@@ -505,8 +514,8 @@ const AdminUpdate = () => {
               >
                 Cancel
               </button>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="btn btn-primary flex-1"
                 disabled={updating}
               >
