@@ -84,22 +84,35 @@ You need to configure the following environment variables.
 Backend (.env)
 env
 PORT=5000
+
 MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret_key
+
 CLIENT_URL=http://localhost:5173
+
 # OAuth (Google & GitHub)
 GOOGLE_CLIENT_ID=your_google_client_id
+
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+
 GITHUB_CLIENT_ID=your_github_client_id
+
 GITHUB_CLIENT_SECRET=your_github_client_secret
+
 # Cloudinary
 CLOUDINARY_CLOUD_NAME=your_cloud_name
+
 CLOUDINARY_API_KEY=your_api_key
+
 CLOUDINARY_API_SECRET=your_api_secret
 # AI
 GEMINI_API_KEY=your_gemini_api_key
+
 # Code Execution (RapidAPI Judge0)
+
 RAPIDAPI_KEY=your_rapidapi_key
+
 RAPIDAPI_HOST=judge0-ce.p.rapidapi.com
 📸 Screenshots
 Landing Page	Code Editor
